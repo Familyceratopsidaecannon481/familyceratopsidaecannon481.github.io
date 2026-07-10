@@ -10,6 +10,54 @@
     --vp-c-text-3: rgba(235, 235, 245, 0.52);
     --vp-c-divider: rgba(255, 255, 255, 0.12);
     --vp-c-gutter: rgba(255, 255, 255, 0.08);
+
+    /* Lab accent palette, reused across nav / sidebar / doc chrome */
+    --lab-cyan: #41d1ff;
+    --lab-purple: #bd34fe;
+    --lab-green: #34d399;
+    --lab-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --lab-grid:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+@keyframes lab-pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(65, 209, 255, 0.55);
+    }
+    70% {
+        box-shadow: 0 0 0 8px rgba(65, 209, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(65, 209, 255, 0);
+    }
+}
+
+/* Thin, lab-console style scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(65, 209, 255, 0.28);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(65, 209, 255, 0.5);
+    background-clip: content-box;
+}
+
+::selection {
+    background: rgba(189, 52, 254, 0.35);
+    color: #fff;
 }
 
 /* Hide the appearance toggle button */
@@ -48,11 +96,41 @@ body::before {
 .VPSidebar {
     background: rgba(30, 30, 32, 0.9) !important;
     backdrop-filter: blur(8px);
+    border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Sidebar group titles read like code comments: // 技术分享 */
+.VPSidebarItem.level-0 > .item > .text {
+    font-family: var(--lab-mono);
+    font-size: 0.78em !important;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(235, 235, 245, 0.5) !important;
+}
+
+.VPSidebarItem.level-0 > .item > .text::before {
+    content: '// ';
+    color: var(--lab-cyan);
+    opacity: 0.7;
+}
+
+/* Active sidebar link gets a terminal-prompt accent */
+.VPSidebarItem .link.is-active .text {
+    color: var(--lab-cyan) !important;
+}
+
+.VPSidebarItem .link.is-active .text::before {
+    content: '> ';
+    color: var(--lab-cyan);
 }
 
 /* Doc page styling */
 .VPDoc .container {
+    position: relative;
     background: rgba(30, 30, 32, 0.85);
+    background-image: var(--lab-grid);
+    background-size: 26px 26px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 12px;
     padding: 24px;
     padding-left: 16px;
@@ -61,13 +139,46 @@ body::before {
     margin-top: 40px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(8px);
+    overflow: hidden;
+}
+
+.VPDoc .container::before,
+.VPDoc .container::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.VPDoc .container::before {
+    top: 10px;
+    left: 6px;
+    border-top: 2px solid var(--lab-cyan);
+    border-left: 2px solid var(--lab-cyan);
+}
+
+.VPDoc .container::after {
+    bottom: 10px;
+    right: 10px;
+    border-bottom: 2px solid var(--lab-purple);
+    border-right: 2px solid var(--lab-purple);
 }
 
 /* Doc page title styling */
 .VPDoc h1 {
+    position: relative;
     font-size: 2.3rem !important;
     margin-top: 12px !important;
     margin-bottom: 48px !important;
+}
+
+.VPDoc .content h1::before {
+    content: '# ';
+    color: var(--lab-cyan);
+    opacity: 0.75;
+    font-family: var(--lab-mono);
 }
 
 /* Navbar styling */
@@ -79,6 +190,47 @@ body::before {
 .VPNavBar {
     background: transparent !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    position: relative;
+}
+
+.VPNavBar::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--lab-cyan), var(--lab-purple), transparent 70%);
+    opacity: 0.55;
+    pointer-events: none;
+}
+
+/* Brand title gets a small pulsing status LED, terminal-style */
+.VPNavBarTitle .title {
+    font-family: var(--lab-mono);
+    letter-spacing: -0.01em;
+}
+
+.VPNavBarTitle .title::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 8px;
+    border-radius: 50%;
+    background: var(--lab-cyan);
+    animation: lab-pulse 2.4s ease-out infinite;
+    vertical-align: middle;
+}
+
+/* Nav menu links get bracket accents on hover/active, like selected CLI flags */
+.VPNavBarMenuLink {
+    font-family: var(--lab-mono);
+    font-size: 0.92em !important;
+}
+
+.VPNavBarMenuLink.active {
+    color: var(--lab-cyan) !important;
 }
 
 /* Make home page full width without sidebar */
@@ -96,10 +248,28 @@ body::before {
 }
 
 .VPDocAsideOutline {
+    position: relative;
     background: rgba(30, 30, 32, 0.9);
+    background-image: var(--lab-grid);
+    background-size: 22px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
     border-radius: 8px;
     padding: 12px;
     backdrop-filter: blur(8px);
+}
+
+.VPDocAsideOutline .outline-title {
+    font-family: var(--lab-mono);
+    font-size: 0.78em;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(235, 235, 245, 0.5) !important;
+}
+
+.VPDocAsideOutline .outline-title::before {
+    content: '// ';
+    color: var(--lab-cyan);
+    opacity: 0.7;
 }
 
 /* Badge 绿色样式 */

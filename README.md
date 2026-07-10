@@ -1,5 +1,5 @@
-# sandrone's Blog
+# Sandrone Lab
 
-Personal blog powered by VitePress, hosted on [mujic-ai](https://github.com/mujic-ai).
+Welcome to Sandrone Lab — experiments, notes, and builds.
 
-Site: https://mujic-ai.github.io
+Powered by VitePress · [mujic-ai](https://github.com/mujic-ai)

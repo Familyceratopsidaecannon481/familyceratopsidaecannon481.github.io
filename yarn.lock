@@ -1042,18 +1042,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sandrone-blog@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "sandrone-blog@workspace:."
-  dependencies:
-    markdown-it-footnote: "npm:^4.0.0"
-    markdown-it-mathjax3: "npm:4"
-    viewerjs: "npm:^1.11.7"
-    vitepress: "npm:^1.0.0"
-    vitepress-plugin-image-viewer: "npm:^1.1.6"
-  languageName: unknown
-  linkType: soft
-
 "abbrev@npm:^4.0.0":
   version: 4.0.0
   resolution: "abbrev@npm:4.0.0"
@@ -2251,6 +2239,18 @@ __metadata:
   checksum: 10c0/7e3c8b2e88a1841c9671094bbaeebd94448111dd90a81a1f606f3f67708a6ec57763b3b47f06da09fc6054193e0e6709e77325415dc8422b04497a8070fa02d4
   languageName: node
   linkType: hard
+
+"sandrone-lab@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "sandrone-lab@workspace:."
+  dependencies:
+    markdown-it-footnote: "npm:^4.0.0"
+    markdown-it-mathjax3: "npm:4"
+    viewerjs: "npm:^1.11.7"
+    vitepress: "npm:^1.0.0"
+    vitepress-plugin-image-viewer: "npm:^1.1.6"
+  languageName: unknown
+  linkType: soft
 
 "semver@npm:^7.3.5":
   version: 7.7.3

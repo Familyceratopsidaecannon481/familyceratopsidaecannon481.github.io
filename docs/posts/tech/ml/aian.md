@@ -61,7 +61,7 @@ sub-layer in the decoder stack to prevent positions from attending to subsequent
 masking, combined with fact that the output embeddings are offset by one position, ensures that the
 predictions for position i can depend only on the known outputs at positions less than i.
 
-![](images/image.png){width=300 .img-center}
+![](../images/image.png){width=300 .img-center}
 
 Encoder里有6层完全一样的构造组成，每一层又有2个子层。第一层是多头注意力，第二层是简单的全连接前馈神经网络。为了防止梯度消失，还引入了残差连接。
 <br/>
@@ -78,7 +78,7 @@ where the query, keys, values, and output are all vectors. The output is compute
 query with the corresponding key.
 
 注意力函数可以看成 $\mathbf{ output }= f(\mathbf{Q},\mathbf{K},\mathbf{V})$，output、QKV都是向量。output是V的加权求和，权重由Q和K的相似度函数计算得到。
-![alt text](images/image-1.png){width=400 .img-center}
+![alt text](../images/image-1.png){width=400 .img-center}
 
 > We call our particular attention "Scaled Dot-Product Attention" (Figure 2). The input consists of
 queries and keys of dimension $d_k$, and values of dimension $d_v$. We compute the dot products of the
@@ -187,9 +187,9 @@ $PE_{pos}$.
 这里有一个有趣的点是模型为什么能理解加和的位置信息。一种说法是神经网络的反向传播和梯度下降，自动最大化利用信息的方向，比如当前朝token信息方向已经无法降低loss，那么它就会往位置信息去走，但是神经网络本身是黑盒，并不能解释谁发现和用好了位置信息。
 
 [understanding-positional-encoding-in-transformers](https://erdem.pl/2021/05/understanding-positional-encoding-in-transformers)
-![alt text](images/image-2.png)
+![alt text](../images/image-2.png)
 低维的编码变化快（短周期），高维的编码变化慢（长周期）。
-![alt text](images/image-3.png)
+![alt text](../images/image-3.png)
 高维分量能唯一标识很长序列中的位置，低维分量则能区分相邻或局部位置。
 
 ## 自注意力
@@ -205,7 +205,7 @@ The third is the path length between long-range dependencies in the network.
 作者比较了自注意力层、循环层和卷积层，主要考虑到的维度是计算复杂度、并行化能力和路径长度。上文看到通过点积注意力计算，模型可以同时处理所有词的注意力，而在CNN等网络中感受野有限，需要多层叠加,无法并行；而对于路径来说，自注意力中，任意两个词的“信息传递路径”只有1步（直接关注），而RNN需要n步（逐词传递），CNN需要$log_kn$步（多层卷积叠加），k是卷积核的大小，因此自注意力的路径长度最短。
 
 ## 注意力可视化
-![alt text](images/image-4.png){width=500 .img-center}
+![alt text](../images/image-4.png){width=500 .img-center}
 图片描述了不同注意力头关注了不同的词汇，说明一些注意力头确实关注了语法或语义的依赖关系。
 <div class="end-of-content">正文结束</div>
 

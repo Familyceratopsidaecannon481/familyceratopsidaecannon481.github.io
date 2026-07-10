@@ -2,15 +2,15 @@
 
 ## 用户代码加载入口
 node的核心机制就是事件循环，node在执行任务时，js层提交任务到c++层，c++层再提交到libuv内，在内部完成生产消费。Node分宏任务和微任务，这个和web思想一样，细节略有差别。
-![alt text](images/image-5.png)
+![alt text](../images/image-5.png)
 
 libuv采用线程池来执行异步任务，任务完成后不会直接调用回调，而是通知主线程。
-![alt text](images/image-6.png)
+![alt text](../images/image-6.png)
 
 所以第一步先搞清楚主链，也就是入口在哪，在哪提交任务，哪里处理任务，哪里返回结果，先把这一系列过程找出来。
 
 在vscode里新建一个test文件打断点，然后找到调用栈最下面一层
-![alt text](images/image-7.png)
+![alt text](../images/image-7.png)
 下面开始找代码。
 ```js
 require('internal/modules/cjs/loader').Module.runMain(mainEntry);
@@ -484,7 +484,7 @@ i::Address* EscapableHandleScopeBase::EscapeSlot(i::Address* escape_value) {
 }
 ```
 这里的调用关系是这样的
-![alt text](images/image-8.png)
+![alt text](../images/image-8.png)
 当EscapeMaybe的时候，在scope内部实例化的函数会被` *escape_slot_ = *escape_value;`复制到外部scope中。**因此创建出的函数实际上已经挂载在V8实例上了**。  
 ```cpp
  Local<Value> arguments[] = {realm->process_object(),
