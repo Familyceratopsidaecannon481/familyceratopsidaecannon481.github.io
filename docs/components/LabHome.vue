@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import { data as posts } from '../posts.data.mts'
 
 const CATEGORY_THEME = {
@@ -6,6 +7,12 @@ const CATEGORY_THEME = {
   '生活随想': { accent: '#c9a6ff', bg: 'rgba(189, 52, 254, 0.14)', border: 'rgba(189, 52, 254, 0.3)' },
 }
 const DEFAULT_THEME = { accent: '#f5b25a', bg: 'rgba(245, 178, 90, 0.12)', border: 'rgba(245, 178, 90, 0.28)' }
+
+/** 排除目录 index 页，只保留真正文章 */
+const articlePosts = computed(() => posts.filter((p) => !p.isIndex))
+/** 首页只展示最近 6 篇 */
+const latestPosts = computed(() => articlePosts.value.slice(0, 6))
+const totalArticles = computed(() => articlePosts.value.length)
 
 function themeOf(category) {
   return CATEGORY_THEME[category] || DEFAULT_THEME
@@ -78,11 +85,11 @@ function cardStyle(post, i) {
           <span class="feed-prompt" aria-hidden="true">$</span>
           ls ./notes
         </h2>
-        <p class="feed-count">[ {{ posts.length }} entries ]</p>
+        <p class="feed-count">[ {{ totalArticles }} entries · latest 6 ]</p>
       </div>
       <div class="posts-grid">
         <a
-          v-for="(post, i) in posts"
+          v-for="(post, i) in latestPosts"
           :key="post.link"
           :href="post.link"
           class="post-card"
@@ -109,6 +116,20 @@ function cardStyle(post, i) {
           </span>
         </a>
       </div>
+
+      <a href="/posts/tech/" class="archive-link">
+        <span class="archive-tag">
+          <span class="archive-dot" aria-hidden="true" />
+          archive
+        </span>
+        <span class="archive-text">
+          共 {{ totalArticles }} 篇笔记，前往侧边栏与各系列目录继续浏览全部内容
+        </span>
+        <span class="archive-cta">
+          View all
+          <span class="archive-arrow" aria-hidden="true">→</span>
+        </span>
+      </a>
     </section>
   </div>
 </template>
@@ -615,6 +636,105 @@ function cardStyle(post, i) {
   flex-shrink: 0;
   font-size: 0.7em;
   opacity: 0.75;
+}
+
+.archive-link {
+  --accent: #f5b25a;
+  --accent-bg: rgba(245, 178, 90, 0.14);
+  --accent-border: rgba(245, 178, 90, 0.35);
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+  padding: 14px 20px;
+  border-radius: 14px;
+  border: 1px dashed var(--accent-border);
+  background: rgba(245, 178, 90, 0.05);
+  text-decoration: none;
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.archive-link:hover {
+  border-color: color-mix(in srgb, var(--accent) 65%, transparent);
+  background: rgba(245, 178, 90, 0.09);
+  transform: translateY(-2px);
+}
+
+.archive-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.archive-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.archive-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.archive-text {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(235, 235, 245, 0.55);
+}
+
+.archive-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.82rem;
+  font-weight: 650;
+  color: var(--accent);
+  transition: gap 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.archive-link:hover .archive-cta {
+  gap: 10px;
+}
+
+.archive-arrow {
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.archive-link:hover .archive-arrow {
+  transform: translateX(3px);
+}
+
+@media (max-width: 640px) {
+  .archive-link {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .archive-text {
+    order: 3;
+    flex-basis: 100%;
+  }
 }
 
 .post-title {

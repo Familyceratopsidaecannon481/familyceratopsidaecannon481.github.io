@@ -1,3 +1,7 @@
+---
+date: 2026-07-11
+---
+
 # About Sandrone Lab
 
 Welcome to **Sandrone Lab** — a workspace for experiments, engineering notes, and half-finished ideas that still deserve a home.
