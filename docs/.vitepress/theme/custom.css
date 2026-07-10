@@ -1,0 +1,205 @@
+/* Force dark mode only */
+:root {
+    --vp-c-bg: #1e1e20;
+    --vp-c-bg-soft: #252529;
+    --vp-c-bg-alt: #1e1e20;
+
+    /* Ensure readable text even if appearance is cached as "light" */
+    --vp-c-text-1: rgba(255, 255, 255, 0.92);
+    --vp-c-text-2: rgba(235, 235, 245, 0.72);
+    --vp-c-text-3: rgba(235, 235, 245, 0.52);
+    --vp-c-divider: rgba(255, 255, 255, 0.12);
+    --vp-c-gutter: rgba(255, 255, 255, 0.08);
+}
+
+/* Hide the appearance toggle button */
+.VPNavBarAppearance,
+.VPSwitchAppearance {
+    display: none !important;
+}
+
+/* Background image for the whole site */
+body {
+    background-image: url('/logo.jpg');
+    background-size: cover;
+    background-position: right center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+/* Add a semi-transparent overlay so text is readable */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 30, 32, 0.75);
+    z-index: -1;
+}
+
+/* Make the main content area have a subtle background */
+.VPContent {
+    background: transparent !important;
+}
+
+/* Sidebar styling */
+.VPSidebar {
+    background: rgba(30, 30, 32, 0.9) !important;
+    backdrop-filter: blur(8px);
+}
+
+/* Doc page styling */
+.VPDoc .container {
+    background: rgba(30, 30, 32, 0.85);
+    border-radius: 12px;
+    padding: 24px;
+    padding-left: 16px;
+    padding-top: 36px;
+    margin: 24px;
+    margin-top: 40px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+}
+
+/* Doc page title styling */
+.VPDoc h1 {
+    font-size: 2.3rem !important;
+    margin-top: 12px !important;
+    margin-bottom: 48px !important;
+}
+
+/* Navbar styling */
+.VPNav {
+    background: rgba(30, 30, 32, 0.85) !important;
+    backdrop-filter: blur(12px);
+}
+
+.VPNavBar {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Make home page full width without sidebar */
+.is-home .VPSidebar {
+    display: none !important;
+}
+
+.is-home .VPContent {
+    padding-left: 0 !important;
+}
+
+/* Outline on the right */
+.VPDocAside {
+    background: transparent !important;
+}
+
+.VPDocAsideOutline {
+    background: rgba(30, 30, 32, 0.9);
+    border-radius: 8px;
+    padding: 12px;
+    backdrop-filter: blur(8px);
+}
+
+/* Badge 绿色样式 */
+.VPBadge.tip {
+    background-color: #10b981 !important;
+    color: white !important;
+}
+
+.dark .VPBadge.tip {
+    background-color: #10b981 !important;
+    color: white !important;
+}
+
+/* 下划线高亮样式 - 默认黄色 */
+mark,
+.underline {
+    background: none;
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-color: #f59e0b;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+}
+
+/* 红色下划线 */
+.red-line {
+    text-decoration: underline;
+    text-decoration-color: #ef4444;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+}
+
+/* 绿色下划线 */
+.green-line {
+    text-decoration: underline;
+    text-decoration-color: #10b981;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+}
+
+/* 蓝色下划线 */
+.blue-line {
+    text-decoration: underline;
+    text-decoration-color: #3b82f6;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+}
+
+/* 黄色下划线 */
+.yellow-line {
+    text-decoration: underline;
+    text-decoration-color: #f59e0b;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 4px;
+}
+
+.img-center {
+    display: block;
+    margin: 0 auto;
+}
+
+/* 正文结束分割线样式 */
+.end-of-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 48px 0 32px 0;
+    color: #888;
+    font-size: 0.9em;
+    user-select: none;
+}
+
+.end-of-content::before,
+.end-of-content::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to var(--direction), transparent, #555, transparent);
+    max-width: 120px;
+}
+
+.end-of-content::before {
+    --direction: right;
+    margin-right: 16px;
+}
+
+.end-of-content::after {
+    --direction: left;
+    margin-left: 16px;
+}
+
+/* 脚注样式优化 */
+.footnotes {
+    border-top: none !important;
+}
+
+.footnotes hr {
+    display: none !important;
+}
+
+.footnotes-sep {
+    display: none !important;
+}
