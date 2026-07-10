@@ -93,10 +93,14 @@ function cardStyle(post, i) {
           <div class="post-meta">
             <span class="post-category">
               <span class="post-category-dot" aria-hidden="true" />
-              {{ post.series ? `${post.category} · ${post.series}` : post.category }}
+              {{ post.category }}
             </span>
             <span class="post-date">{{ post.date }}</span>
           </div>
+          <span v-if="post.series" class="post-series">
+            <span class="post-series-mark" aria-hidden="true">▸</span>
+            {{ post.series }}
+          </span>
           <h3 class="post-title">{{ post.title }}</h3>
           <p class="post-desc">{{ post.description }}</p>
           <span class="read-more">
@@ -551,13 +555,15 @@ function cardStyle(post, i) {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
 }
 
 .post-category {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  flex-shrink: 0;
+  max-width: 70%;
   font-size: 0.68rem;
   font-weight: 650;
   letter-spacing: 0.1em;
@@ -567,6 +573,9 @@ function cardStyle(post, i) {
   border: 1px solid var(--accent-border);
   padding: 3px 8px;
   border-radius: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .post-category-dot {
@@ -578,9 +587,34 @@ function cardStyle(post, i) {
 }
 
 .post-date {
+  flex-shrink: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
   font-size: 0.75rem;
+  white-space: nowrap;
   color: rgba(235, 235, 245, 0.42);
+}
+
+.post-series {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin-bottom: 12px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.74rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--accent) 75%, rgba(235, 235, 245, 0.7));
+  opacity: 0.85;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.post-series-mark {
+  flex-shrink: 0;
+  font-size: 0.7em;
+  opacity: 0.75;
 }
 
 .post-title {
